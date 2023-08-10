@@ -1,0 +1,10 @@
+---
+- name: Run Example Role
+  hosts: host1
+  become: yes
+  # If you need to run tasks with elevated privileges, set this to true
+    
+
+
+ # roles:
+  #  - name: mysql/ansible-role-mysql
