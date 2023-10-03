@@ -9,7 +9,7 @@ db_details:
     - name: user11
       password: "{{ password1 }}"
       privileges: "database1.*:ALL"
-    - name: user2
+    - name: user12
       password: "{{ password2 }}"
       privileges: "database2.*:ALL"
     - name: user3
