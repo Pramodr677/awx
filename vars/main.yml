@@ -16,7 +16,7 @@ db_details:
       password: "{{ password3 }}"
       privileges: "database3.*:ALL" 
   tables:
-    - database: database1
+    - database: database11
       table_name: table1
     - database: database2
       table_name: table2    
