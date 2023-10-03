@@ -2,7 +2,7 @@
 
 db_details:
   databases:
-    - database1
+    - database11
     - database2
     - database3  # Add new database here in the future
   users:
