@@ -6,7 +6,7 @@ db_details:
     - database12
     - database13  # Add new database here in the future
   users:
-    - name: user1
+    - name: user11
       password: "{{ password1 }}"
       privileges: "database1.*:ALL"
     - name: user2
