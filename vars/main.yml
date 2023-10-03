@@ -4,7 +4,7 @@ db_details:
   databases:
     - database11
     - database12
-    - database3  # Add new database here in the future
+    - database13  # Add new database here in the future
   users:
     - name: user1
       password: "{{ password1 }}"
