@@ -1,0 +1,36 @@
+---
+
+db_details:
+  databases:
+    - database11
+    - database12
+    - database13  # Add new database here in the future
+  users:
+    - name: user11
+      password: "{{ password1 }}"
+      privileges: "database1.*:ALL"
+    - name: user12
+      password: "{{ password2 }}"
+      privileges: "database2.*:ALL"
+    - name: user3
+      password: "{{ password3 }}"
+      privileges: "database3.*:ALL" 
+  tables:
+    - database: database11
+      table_name: table1
+    - database: database2
+      table_name: table2    
+
+mysql:
+  root_db_password: "{{ password4 }}"
+
+  hosts:
+    - localhost   
+login_user: root
+login_password: "{{ password1 }}"
+#password
+# List of hosts where the MySQL root password should be updated
+ 
+
+ ################################################
+

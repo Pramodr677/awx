@@ -1,0 +1,80 @@
+---
+
+
+
+- name: Install MySQL database
+  apt:
+    name: "{{ item }}"
+    state: present
+    force: no
+  become: true  
+  with_items:
+    - mysql-server
+    - mysql-client
+
+- name: Install Python pip
+  apt:
+    name: python3-pip
+    update_cache: yes
+    state: present
+    force_apt_get: yes
+  become: true
+
+- name: Install PyMySQL
+  pip:
+    name: pymysql
+    state: present
+
+
+- name: Start MySQL Service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
+
+- name: Create `/root/.my.cnf` with root password credentials
+  template:
+    src: my.cnf.j2
+    dest: /root/.my.cnf
+    owner: root
+    mode: 0600
+  become: yes
+  notify: Restart MySQL
+
+- name: Create MySQL User
+  mysql_user:
+    name: root
+    password: "{{ login_password }}"
+    login_unix_socket: /var/run/mysqld/mysqld.sock
+    host: localhost
+    priv: "*.*:ALL,GRANT"
+    state: present
+  become: yes
+
+- name: Create Database Users
+  mysql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    priv: "{{ item.privileges }}"
+    state: present
+    host: '%'
+  with_items: "{{ db_details.users }}"
+
+- name: Create Application Databases
+  mysql_db:
+    name: "{{ item }}"
+    state: present
+    login_user: "{{ login_user }}"
+    login_password: "{{ login_password }}"
+  with_items: "{{ db_details.databases }}"
+
+- name: Create Tables
+  mysql_db:
+    name: "{{ item.database }}"
+    state: present
+    login_user: "{{ login_user }}"
+    login_password: "{{ login_password }}"
+  with_items: "{{ db_details.tables | default([]) }}"
+  when: db_details.tables is defined  
+
+
